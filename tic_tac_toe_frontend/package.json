@@ -10,12 +10,13 @@
   "scripts": {
     "start": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none BROWSERSLIST_IGNORE_OLD_DATA=true react-scripts start",
     "start:ci": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true react-scripts start",
+    "start:ci:quiet": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false react-scripts start",
     "build": "BROWSERSLIST_IGNORE_OLD_DATA=true GENERATE_SOURCEMAP=${REACT_APP_ENABLE_SOURCE_MAPS:-false} react-scripts build",
     "build:ci": "BROWSERSLIST_IGNORE_OLD_DATA=true GENERATE_SOURCEMAP=${REACT_APP_ENABLE_SOURCE_MAPS:-false} CI=true react-scripts build",
     "test": "CI=true react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx src",
-    "healthcheck": "node -e \"require('http').get('http://localhost:'+(process.env.REACT_APP_PORT||3000)+'/',res=>{console.log('HTTP',res.statusCode);process.exit(res.statusCode===200?0:1)}).on('error',()=>process.exit(1))\""
+    "healthcheck": "node -e \"require('http').get('http://localhost:'+(process.env.REACT_APP_PORT||3000)+'/healthz',res=>{console.log('HTTP',res.statusCode);process.exit(res.statusCode===200?0:1)}).on('error',()=>process.exit(1))\""
   },
   "eslintConfig": {
     "extends": "react-app"
