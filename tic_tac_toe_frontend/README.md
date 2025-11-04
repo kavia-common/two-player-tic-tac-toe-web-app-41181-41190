@@ -8,6 +8,7 @@ This project provides a minimal React template with a clean, modern UI and minim
 - Modern UI: Clean, responsive design with KAVIA brand styling
 - Fast: Minimal dependencies for quick loading times
 - Simple: Easy to understand and modify
+- Optional OpenAI Chatbot widget (disabled by default; opt-in via env vars)
 
 ## Getting Started
 
@@ -23,7 +24,7 @@ Open http://localhost:3000 to view it in your browser.
 - Development server: `npm run start:ci`
   - Binds to HOST=0.0.0.0, uses REACT_APP_PORT (default 3000), disables auto-open (BROWSER=none).
   - Forces CI=true to reduce watcher workload and keep logs concise.
-  - Disables polling watchers (CHOKIDAR_USEPOLLING=false, WATCHPACK_POLLING=false) to reduce CPU/memory in containers.
+  - Disables polling watchers (CHOKIDAR_USEPOLLING=false, WATCHPACK_POLLING=false) to reduce CPU/memory in containers).
 - Production build: `npm run build:ci`
   - Suppresses outdated Browserslist DB warnings in CI via BROWSERSLIST_IGNORE_OLD_DATA.
   - Disables source maps by default (GENERATE_SOURCEMAP=false) to reduce memory usage.
@@ -36,9 +37,23 @@ Health check:
 Browserslist:
 - To update the Browserslist DB locally, run: `npx update-browserslist-db@latest`
 
+## OpenAI Chatbot (Optional)
+
+A lightweight floating chat widget can be enabled to chat with an OpenAI-compatible model.
+
+Environment variables:
+- REACT_APP_ENABLE_CHATBOT=true
+- REACT_APP_OPENAI_API_KEY=sk-... (do not commit; set via environment)
+- REACT_APP_OPENAI_API_BASE=https://api.openai.com/v1 (or compatible base)
+- REACT_APP_OPENAI_MODEL=gpt-4o-mini (or your chosen model)
+
+Notes:
+- If REACT_APP_ENABLE_CHATBOT is not "true", the widget will not render.
+- Missing API key disables sending and will show a hint in the input placeholder.
+
 ## Customization
 
-See `src/styles.css` for the retro light theme styling used by the game.
+See `src/styles.css` for the retro light theme styling used by the game. The chat widget styling is included at the bottom of this file and follows the same theme.
 
 ## Learn More
 

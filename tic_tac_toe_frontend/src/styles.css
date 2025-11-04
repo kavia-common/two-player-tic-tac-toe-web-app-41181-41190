@@ -13,6 +13,118 @@
   --shadow: 0 8px 14px rgba(17, 24, 39, 0.08);
 }
 
+/* Chat widget */
+.chat-launcher {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 2px solid var(--primary);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 800;
+  font-family: "Courier New", Courier, monospace;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #1e40af, 0 6px 12px rgba(30, 64, 175, 0.2);
+  z-index: 50;
+}
+
+.chat-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 72px;
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(60vh, 520px);
+  background: var(--surface);
+  border: 2px solid var(--grid-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #ffffff, #f2f6ff);
+  color: var(--primary);
+  padding: 8px 12px;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.chat-close {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--secondary);
+}
+
+.chat-messages {
+  padding: 10px;
+  overflow-y: auto;
+  flex: 1;
+  background: #fbfdff;
+}
+
+.chat-message {
+  margin: 6px 0;
+  display: flex;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message .bubble {
+  max-width: 80%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-family: "Courier New", Courier, monospace;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  white-space: pre-wrap;
+}
+
+.chat-message.user .bubble {
+  background: var(--primary);
+  color: #fff;
+}
+
+.chat-message.assistant .bubble {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: var(--text);
+}
+
+.chat-input-row {
+  display: flex;
+  padding: 8px;
+  gap: 8px;
+  border-top: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.chat-input-row input[type="text"] {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-family: "Courier New", Courier, monospace;
+  outline: none;
+}
+
+.chat-input-row .btn {
+  padding: 8px 12px;
+}
+
 html, body, #root {
   height: 100%;
 }

@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import Board from './components/Board';
+import ChatWidget from './components/ChatWidget';
 import './styles.css';
 
 /**
@@ -83,6 +84,8 @@ export default function App() {
 
         <div className="footer-note">Retro light theme • No backend required</div>
       </div>
+      {/* OpenAI Chat Widget is conditionally enabled via REACT_APP_ENABLE_CHATBOT=true */}
+      <ChatWidget />
     </div>
   );
 }
