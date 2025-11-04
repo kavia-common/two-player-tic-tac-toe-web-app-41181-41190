@@ -16,7 +16,7 @@
     "test": "CI=true react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx src",
-    "healthcheck": "node -e \"require('http').get('http://localhost:'+(process.env.REACT_APP_PORT||3000)+'/healthz',res=>{console.log('HTTP',res.statusCode);process.exit(res.statusCode===200?0:1)}).on('error',()=>process.exit(1))\""
+    "healthcheck": "node -e \"require('http').get('http://127.0.0.1:'+(process.env.REACT_APP_PORT||3000)+'/healthz',res=>{console.log('HTTP',res.statusCode);process.exit(res.statusCode===200?0:1)}).on('error',()=>process.exit(1))\""
   },
   "eslintConfig": {
     "extends": "react-app"

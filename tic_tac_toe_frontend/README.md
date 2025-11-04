@@ -36,13 +36,13 @@ To prevent CI from killing the dev server with exit code 137 (OOM/timeout), pref
 These variants help avoid resource-related terminations (exit code 137) by reducing overhead and preventing manual kills. If port 3000 is occupied in CI, set `REACT_APP_PORT` to a free port.
 
 Health check:
-- A static health endpoint is served at `/healthz`. After starting, verify readiness with `npm run healthcheck` (expects HTTP 200 on /healthz).
+- A static health endpoint is served at `/healthz` (served from `public/healthz`). After starting, verify readiness with `npm run healthcheck` (expects HTTP 200 on /healthz). The healthcheck targets 127.0.0.1 by default.
 
 Browserslist:
 - To update the Browserslist DB locally, run: `npx update-browserslist-db@latest`
 
 Deprecation warnings:
-- Webpack dev server middleware warnings about onBeforeSetupMiddleware/onAfterSetupMiddleware are harmless with react-scripts 5.x. They do not affect functionality.
+- Webpack dev server middleware warnings about `onBeforeSetupMiddleware`/`onAfterSetupMiddleware` are benign with `react-scripts@5.x` and do not affect functionality. They can be ignored in CI.
 
 ## OpenAI Chatbot (Optional)
 
