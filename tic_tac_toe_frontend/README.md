@@ -62,6 +62,7 @@ Environment variables:
 Notes:
 - If REACT_APP_ENABLE_CHATBOT is not "true", the widget will not render.
 - Missing API key disables sending and will show a hint in the input placeholder.
+- Network hardening: If your CI/network blocks external calls, keep REACT_APP_ENABLE_CHATBOT unset (default) to avoid any outbound requests. The widget short-circuits and does not initialize hooks when disabled.
 
 ## Customization
 

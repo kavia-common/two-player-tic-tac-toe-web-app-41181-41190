@@ -18,7 +18,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx src",
     "healthcheck": "node -e \"require('http').get('http://127.0.0.1:'+(process.env.REACT_APP_PORT||3000)+'/healthz',res=>{console.log('HTTP',res.statusCode);process.exit(res.statusCode===200?0:1)}).on('error',()=>process.exit(1))\"",
-    "prepare": "echo 'skip prepare in CI'"
+    "prepare": "echo 'skip prepare in CI'",
+    "_note_start_stable": "Use `npm run start:stable` in CI to minimize memory spikes and avoid exit code 137."
   },
   "eslintConfig": {
     "extends": "react-app"

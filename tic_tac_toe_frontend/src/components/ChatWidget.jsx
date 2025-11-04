@@ -144,7 +144,8 @@ function ChatWidgetInner({ apiKey, apiBase, model }) {
  * - Button has aria-labels and focuses input on open.
  */
 export default function ChatWidget() {
-  // Derive static config from env in the wrapper. No hooks used here.
+  // Derive static config from env in the wrapper.
+  // IMPORTANT: Do not add hooks to this wrapper to keep conditional rendering safe.
   const enabled = String(process.env.REACT_APP_ENABLE_CHATBOT || '').toLowerCase() === 'true';
   const apiKey = process.env.REACT_APP_OPENAI_API_KEY || '';
   const apiBase = (process.env.REACT_APP_OPENAI_API_BASE || 'https://api.openai.com/v1').replace(/\/*$/, '');
