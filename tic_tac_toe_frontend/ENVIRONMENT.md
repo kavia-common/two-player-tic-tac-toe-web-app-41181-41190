@@ -29,3 +29,4 @@ CI notes:
 - Node memory is capped with NODE_OPTIONS=--max-old-space-size=256 to prevent OOM kills (exit 137).
 - A static health file is served from public/healthz and returns 200 OK.
 - Webpack Dev Server deprecation warnings for onAfterSetupMiddleware/onBeforeSetupMiddleware are benign under react-scripts 5.x and can be ignored in CI.
+- Helper: `npm run start:ci:health` will start the server and wait up to 60s for /healthz to return 200 in CI.
