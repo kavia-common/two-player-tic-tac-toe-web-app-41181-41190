@@ -26,6 +26,7 @@ By default, npm start delegates to start:stable which uses CI-friendly settings 
 To prevent CI from killing the dev server with exit code 137 (OOM/timeout), prefer the CI variants below.
 
 - Development server: `npm run start:stable` (recommended), or `npm run start:ci` / `npm run start:ci:quiet`
+  - CI readiness helper: `npm run start:ready` (starts the server and exits successfully when /healthz returns 200).
   - Binds to HOST=0.0.0.0, uses REACT_APP_PORT (default 3000), disables auto-open (BROWSER=none).
   - Forces CI=true to reduce watcher workload and keep logs concise.
   - Disables polling watchers (CHOKIDAR_USEPOLLING=false, WATCHPACK_POLLING=false) to reduce CPU/memory in containers.
