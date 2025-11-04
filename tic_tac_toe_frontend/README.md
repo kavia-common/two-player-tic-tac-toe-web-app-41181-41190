@@ -27,6 +27,9 @@ Launches the test runner in interactive watch mode.
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
+Note: The build script suppresses outdated Browserslist database warnings in CI to avoid noisy logs that may cause strict pipelines to fail. To update the Browserslist DB locally, run:
+`npx update-browserslist-db@latest`
+
 ## Customization
 
 ### Colors
