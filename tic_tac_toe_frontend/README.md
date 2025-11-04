@@ -25,11 +25,11 @@ By default, npm start uses CI-friendly settings to reduce memory usage and avoid
 
 To prevent CI from killing the dev server with exit code 137 (OOM/timeout), prefer the CI variants below.
 
-- Development server: `npm run start:ci` or `npm run start:ci:quiet`
+- Development server: `npm run start:stable` (recommended), or `npm run start:ci` / `npm run start:ci:quiet`
   - Binds to HOST=0.0.0.0, uses REACT_APP_PORT (default 3000), disables auto-open (BROWSER=none).
   - Forces CI=true to reduce watcher workload and keep logs concise.
   - Disables polling watchers (CHOKIDAR_USEPOLLING=false, WATCHPACK_POLLING=false) to reduce CPU/memory in containers.
-  - Adds FAST_REFRESH=false in the quiet variant to reduce hot-reload CPU spikes.
+  - start:stable additionally sets FAST_REFRESH=false, SKIP_PREFLIGHT_CHECK=true and TSC_COMPILE_ON_ERROR=true to minimize hot-reload spikes and preflight overhead.
   - Uses react-scripts dev server which prints "Compiled successfully" on readiness.
 - Production build: `npm run build:ci`
   - Suppresses outdated Browserslist DB warnings in CI via BROWSERSLIST_IGNORE_OLD_DATA.
