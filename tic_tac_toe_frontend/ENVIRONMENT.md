@@ -22,6 +22,6 @@ OpenAI Chatbot (optional; disabled by default):
 - REACT_APP_OPENAI_MODEL: Model (default gpt-4o-mini)
 
 CI notes:
-- Prefer `npm run start:stable` to avoid exit code 137 in constrained environments.
+- Default `npm start` now runs `start:stable` to avoid exit code 137 in constrained environments.
 - Health check is available at http://127.0.0.1:${REACT_APP_PORT:-3000}${REACT_APP_HEALTHCHECK_PATH:-/healthz}
 - The dev server is configured with CI-friendly flags (CI=true, polling disabled, ESLint plugin disabled, small memory limit) to reduce overhead.
