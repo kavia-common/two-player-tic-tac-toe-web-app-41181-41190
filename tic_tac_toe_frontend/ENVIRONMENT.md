@@ -21,12 +21,16 @@ OpenAI Chatbot (optional; disabled by default):
 - REACT_APP_OPENAI_API_BASE: API base URL (default https://api.openai.com/v1)
 - REACT_APP_OPENAI_MODEL: Model (default gpt-4o-mini)
 
+Health endpoint:
+- A static health check file is served at /healthz with body "OK".
+- Path can be changed via REACT_APP_HEALTHCHECK_PATH; if set, ensure the corresponding file exists in public/.
+
 CI notes:
 - Default `npm start` runs `start:stable` to avoid exit code 137 (OOM/kill) in constrained environments.
+- If your CI/container is extremely constrained, use `npm run start:ultralowmem` which caps Node to 128MB and disables non-essential features.
 - Health check is available at http://127.0.0.1:${REACT_APP_PORT:-3000}${REACT_APP_HEALTHCHECK_PATH:-/healthz} (served from `public/healthz` with body "OK"). This file is included in the repo.
 - The dev server is configured with CI-friendly flags (CI=true, polling disabled, ESLint plugin disabled, small memory limit) to reduce overhead.
 - The dev server binds to HOST=0.0.0.0 intentionally for containers; access via http://localhost:${REACT_APP_PORT:-3000}.
-- Node memory is capped with NODE_OPTIONS=--max-old-space-size=192 (or 160 via `start:lowmem`) to prevent OOM kills (exit 137).
-- A static health file is served from public/healthz and returns 200 OK.
+- Node memory is capped with NODE_OPTIONS=--max-old-space-size=192 by default (`start:stable`), or 160 (`start:lowmem`), or 128 (`start:ultralowmem`) to prevent OOM kills (exit 137).
 - Webpack Dev Server deprecation warnings for onAfterSetupMiddleware/onBeforeSetupMiddleware are benign under react-scripts 5.x and can be ignored in CI.
 - Helper: `npm run start:ci:health` will start the server and wait up to 60s for /healthz to return 200 in CI and ensure the server is still running.

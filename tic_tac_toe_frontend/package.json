@@ -13,6 +13,7 @@
     "start:ci:quiet": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
     "start:stable": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false TSC_COMPILE_ON_ERROR=true SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 NODE_OPTIONS='--max-old-space-size=192' react-scripts start",
     "start:lowmem": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false TSC_COMPILE_ON_ERROR=true SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 NODE_OPTIONS='--max-old-space-size=160' react-scripts start",
+    "start:ultralowmem": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false TSC_COMPILE_ON_ERROR=true SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 REACT_EDITOR=none NODE_OPTIONS='--max-old-space-size=128 --max-http-header-size=16384' react-scripts start",
     "start:ci:health": "npm run start:stable & pid=$!; for i in $(seq 1 60); do sleep 1; npm run -s healthcheck && kill -0 $pid >/dev/null 2>&1 && exit 0 || true; done; echo 'Healthcheck failed'; kill -9 $pid || true; exit 1",
     "start:ready": "npm run start:ci:health",
     "build": "BROWSERSLIST_IGNORE_OLD_DATA=true GENERATE_SOURCEMAP=${REACT_APP_ENABLE_SOURCE_MAPS:-false} NODE_OPTIONS='--max-old-space-size=256' react-scripts build",
@@ -20,9 +21,10 @@
     "test": "CI=true react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx src",
-    "healthcheck": "node -e \"require('http').get('http://127.0.0.1:'+(process.env.REACT_APP_PORT||3000)+(process.env.REACT_APP_HEALTHCHECK_PATH||'/healthz'),res=>{console.log('Health /healthz HTTP',res.statusCode);process.exit(res.statusCode===200?0:1)}).on('error',()=>process.exit(1))\"",
+    "healthcheck": "node -e \"require('http').get('http://127.0.0.1:'+(process.env.REACT_APP_PORT||process.env.PORT||3000)+(process.env.REACT_APP_HEALTHCHECK_PATH||'/healthz'),res=>{console.log('Health /healthz HTTP',res.statusCode);process.exit(res.statusCode===200?0:1)}).on('error',()=>process.exit(1))\"",
     "prepare": "echo 'skip prepare in CI'",
-    "_note_start_stable": "Use `npm run start:stable` in CI to minimize memory spikes and avoid exit code 137."
+    "_note_start_stable": "Use `npm run start:stable` in CI to minimize memory spikes and avoid exit code 137.",
+    "_note_ultralowmem": "Use `npm run start:ultralowmem` if the environment is extremely constrained."
   },
   "eslintConfig": {
     "extends": "react-app"
