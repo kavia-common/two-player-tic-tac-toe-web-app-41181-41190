@@ -44,6 +44,9 @@ Browserslist:
 Deprecation warnings:
 - Webpack dev server middleware warnings about `onBeforeSetupMiddleware`/`onAfterSetupMiddleware` are benign with `react-scripts@5.x` and do not affect functionality. They can be ignored in CI.
 
+Webpack dev server binding note:
+- The dev server binds to 0.0.0.0 intentionally for containerized environments. Access via http://localhost:3000 from the host or the provided container URL.
+
 ## OpenAI Chatbot (Optional)
 
 A lightweight floating chat widget can be enabled to chat with an OpenAI-compatible model.
