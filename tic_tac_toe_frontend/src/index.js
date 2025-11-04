@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import { register as registerServiceWorker } from './serviceWorkerRegistration';
 
+/**
+ * PUBLIC_INTERFACE
+ * React application entrypoint. Mounts the Tic Tac Toe App into #root.
+ */
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 root.render(

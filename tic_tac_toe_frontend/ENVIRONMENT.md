@@ -25,3 +25,6 @@ CI notes:
 - Default `npm start` now runs `start:stable` to avoid exit code 137 in constrained environments.
 - Health check is available at http://127.0.0.1:${REACT_APP_PORT:-3000}${REACT_APP_HEALTHCHECK_PATH:-/healthz}
 - The dev server is configured with CI-friendly flags (CI=true, polling disabled, ESLint plugin disabled, small memory limit) to reduce overhead.
+- The dev server binds to HOST=0.0.0.0 intentionally for containers; access via http://localhost:${REACT_APP_PORT:-3000}.
+- Node memory is capped with NODE_OPTIONS=--max-old-space-size=256 to prevent OOM kills (exit 137).
+- A static health file is served from public/healthz and returns 200 OK.

@@ -1,41 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- PUBLIC_INTERFACE -->
+    <!-- Basic CRA-compatible HTML template for the Tic Tac Toe app. -->
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#3b82f6" />
-    <meta
-      name="description"
-      content="Two-player Tic Tac Toe — lightweight React app with retro theme"
-    />
+    <meta name="description" content="Two-player Tic Tac Toe - Retro light theme" />
     <title>Tic Tac Toe</title>
-    <style>
-      body { margin: 0; background: #f9fafb; color: #111827; }
-      .env-banner {
-        position: fixed; left: 0; right: 0; bottom: 0;
-        background: #eef2ff; color: #1e3a8a;
-        padding: 4px 8px; font-size: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        border-top: 1px solid #c7d2fe;
-      }
-    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <div class="env-banner">
-      Dev server on 0.0.0.0: <strong><script>document.write((window.location.port||'3000'));</script></strong>
-      • Healthcheck: <code id="health-path">/healthz</code>
-      <script>
-        // Allow overriding the health path through env baked at build time.
-        (function(){
-          var el = document.getElementById('health-path');
-          // REACT_APP_HEALTHCHECK_PATH is not directly available at runtime in CRA,
-          // but default documented path is /healthz.
-          // Banner is for human reference only.
-          if (!el.textContent) el.textContent = '/healthz';
-        })();
-      </script>
-    </div>
   </body>
 </html>

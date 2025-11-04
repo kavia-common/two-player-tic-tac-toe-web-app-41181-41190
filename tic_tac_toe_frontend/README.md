@@ -41,6 +41,7 @@ These variants help avoid resource-related terminations (exit code 137) by reduc
 
 Health check:
 - A static health endpoint is served at `/healthz` (served from `public/healthz`). After starting, verify readiness with `npm run healthcheck` (expects HTTP 200 on /healthz). The healthcheck targets 127.0.0.1 by default.
+- If you interrupt the server with Ctrl+C, the process may exit with code 130; this is expected and not a build failure.
 
 Browserslist:
 - To update the Browserslist DB locally, run: `npx update-browserslist-db@latest`
