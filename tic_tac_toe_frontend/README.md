@@ -21,6 +21,10 @@ Open http://localhost:3000 to view it in your browser.
 
 By default, npm start delegates to start:stable which uses CI-friendly settings to reduce memory usage and avoid exit code 137 in containers.
 
+Tip:
+- For extremely constrained environments, try `npm run start:lowmem` (reduced Node memory cap).
+- CI readiness: `npm run start:ready` waits for /healthz=200 and exits success, leaving the dev server running.
+
 ### CI-friendly usage and stability notes
 
 To prevent CI from killing the dev server with exit code 137 (OOM/timeout), prefer the CI variants below.

@@ -7,6 +7,8 @@ import { register as registerServiceWorker } from './serviceWorkerRegistration';
 /**
  * PUBLIC_INTERFACE
  * React application entrypoint. Mounts the Tic Tac Toe App into #root.
+ * Notes:
+ * - Dev server intentionally binds to 0.0.0.0 for container access (see package.json scripts).
  */
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
