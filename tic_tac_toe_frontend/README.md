@@ -19,6 +19,8 @@ In the project directory, you can run:
 Runs the app in development mode.
 Open http://localhost:3000 to view it in your browser.
 
+By default, npm start uses CI-friendly settings to reduce memory usage and avoid exit code 137 in containers.
+
 ### CI-friendly usage and stability notes
 
 To prevent CI from killing the dev server with exit code 137 (OOM/timeout), prefer the CI variants below.
