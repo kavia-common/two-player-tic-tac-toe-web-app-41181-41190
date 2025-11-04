@@ -39,11 +39,6 @@ export default function App() {
   const result = useMemo(() => calculateWinner(squares), [squares]);
   const isBoardFull = useMemo(() => squares.every(Boolean), [squares]);
   const isDraw = !result && isBoardFull;
-  const statusText = result
-    ? `Winner: ${result.winner}`
-    : isDraw
-      ? 'Draw'
-      : `Next player: ${xIsNext ? 'X' : 'O'}`;
 
   const handleSquareClick = (i) => {
     // Ignore clicks if game over or square already filled
