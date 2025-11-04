@@ -1,23 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 /**
- * PUBLIC_INTERFACE
- * ChatWidget provides a minimal OpenAI-powered chat interface.
- * It renders a floating chat button and panel. When enabled via env, it sends
- * messages to the OpenAI Responses API-compatible endpoint specified by
- * REACT_APP_OPENAI_API_BASE, using a model in REACT_APP_OPENAI_MODEL.
- *
- * Environment variables required:
- * - REACT_APP_OPENAI_API_KEY: Bearer token for OpenAI-compatible API.
- * - REACT_APP_OPENAI_API_BASE: Base URL for API (e.g., https://api.openai.com/v1).
- * - REACT_APP_OPENAI_MODEL: Model name, default "gpt-4o-mini" if not set.
- * - REACT_APP_ENABLE_CHATBOT: "true" to enable the widget; if not true, component renders null.
- *
- * Accessibility:
- * - Button has aria-labels and focuses input on open.
+ * ChatWidgetInner contains all hook usage. It is always rendered by the wrapper
+ * when the chatbot feature is enabled to guarantee hooks are called
+ * unconditionally and in the same order on every render.
  */
-export default function ChatWidget() {
-  // Hooks must be called unconditionally to satisfy react-hooks rules
+function ChatWidgetInner({ apiKey, apiBase, model }) {
+  // PUBLIC_INTERFACE
+  // All hooks are declared at the top level and never conditionally called.
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hi! Ask me anything about this Tic Tac Toe game.' }
@@ -26,12 +16,6 @@ export default function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const listRef = useRef(null);
   const inputRef = useRef(null);
-
-  // Static config derived from env
-  const enabled = String(process.env.REACT_APP_ENABLE_CHATBOT || '').toLowerCase() === 'true';
-  const apiKey = process.env.REACT_APP_OPENAI_API_KEY || '';
-  const apiBase = (process.env.REACT_APP_OPENAI_API_BASE || 'https://api.openai.com/v1').replace(/\/+$/, '');
-  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o-mini';
 
   useEffect(() => {
     if (open && inputRef.current) {
@@ -49,6 +33,7 @@ export default function ChatWidget() {
     return !!apiKey && !!apiBase && !!model && input.trim().length > 0 && !loading;
   }, [apiKey, apiBase, model, input, loading]);
 
+  // PUBLIC_INTERFACE
   const sendMessage = async (e) => {
     e.preventDefault();
     if (!canSend) return;
@@ -75,7 +60,7 @@ export default function ChatWidget() {
       if (!res.ok) {
         const text = await res.text();
         throw new Error(`API error ${res.status}: ${text}`);
-      }
+        }
 
       const data = await res.json();
       let assistantText = '';
@@ -99,12 +84,6 @@ export default function ChatWidget() {
       setLoading(false);
     }
   };
-
-  // Only gate the render output, not the hook calls.
-  // Rendering null avoids any runtime work when chatbot is disabled in env.
-  if (!enabled) {
-    return null;
-  }
 
   return (
     <>
@@ -146,4 +125,35 @@ export default function ChatWidget() {
       )}
     </>
   );
+}
+
+/**
+ * PUBLIC_INTERFACE
+ * ChatWidget provides a minimal OpenAI-powered chat interface.
+ * It renders a floating chat button and panel. When enabled via env, it sends
+ * messages to the OpenAI Responses API-compatible endpoint specified by
+ * REACT_APP_OPENAI_API_BASE, using a model in REACT_APP_OPENAI_MODEL.
+ *
+ * Environment variables required:
+ * - REACT_APP_OPENAI_API_KEY: Bearer token for OpenAI-compatible API.
+ * - REACT_APP_OPENAI_API_BASE: Base URL for API (e.g., https://api.openai.com/v1).
+ * - REACT_APP_OPENAI_MODEL: Model name, default "gpt-4o-mini" if not set.
+ * - REACT_APP_ENABLE_CHATBOT: "true" to enable the widget; if not true, component renders null.
+ *
+ * Accessibility:
+ * - Button has aria-labels and focuses input on open.
+ */
+export default function ChatWidget() {
+  // Derive static config from env in the wrapper. No hooks used here.
+  const enabled = String(process.env.REACT_APP_ENABLE_CHATBOT || '').toLowerCase() === 'true';
+  const apiKey = process.env.REACT_APP_OPENAI_API_KEY || '';
+  const apiBase = (process.env.REACT_APP_OPENAI_API_BASE || 'https://api.openai.com/v1').replace(/\/*$/, '');
+  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o-mini';
+
+  // Only gate the render output via this wrapper. Hooks live in ChatWidgetInner.
+  if (!enabled) {
+    return null;
+  }
+
+  return <ChatWidgetInner apiKey={apiKey} apiBase={apiBase} model={model} />;
 }
