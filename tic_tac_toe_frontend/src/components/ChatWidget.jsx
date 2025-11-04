@@ -45,6 +45,10 @@ function ChatWidgetInner({ apiKey, apiBase, model }) {
     setLoading(true);
 
     try {
+      // Add a timeout to prevent hanging requests in constrained CI environments
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+
       const res = await fetch(`${apiBase}/responses`, {
         method: 'POST',
         headers: {
@@ -54,15 +58,29 @@ function ChatWidgetInner({ apiKey, apiBase, model }) {
         body: JSON.stringify({
           model,
           input: nextMessages.map(m => `${m.role === 'user' ? 'User' : 'Assistant'}: ${m.content}`).join('\n') + '\nAssistant:',
-        })
-      });
+        }),
+        signal: controller.signal
+      }).finally(() => clearTimeout(timeoutId));
 
       if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`API error ${res.status}: ${text}`);
+        let text = '';
+        try {
+          text = await res.text();
+        } catch {
+          text = '';
         }
+        throw new Error(`API error ${res.status}${text ? `: ${text}` : ''}`);
+      }
 
-      const data = await res.json();
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        // If JSON parsing fails, fall back to text
+        const fallback = await res.text().catch(() => '');
+        data = { output_text: fallback || '' };
+      }
+
       let assistantText = '';
       if (data && data.output && Array.isArray(data.output)) {
         const first = data.output[0];
@@ -147,14 +165,16 @@ export default function ChatWidget() {
   // Derive static config from env in the wrapper.
   // IMPORTANT: Do not add hooks to this wrapper to keep conditional rendering safe.
   const enabled = String(process.env.REACT_APP_ENABLE_CHATBOT || '').toLowerCase() === 'true';
-  const apiKey = process.env.REACT_APP_OPENAI_API_KEY || '';
-  const apiBase = (process.env.REACT_APP_OPENAI_API_BASE || 'https://api.openai.com/v1').replace(/\/*$/, '');
-  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o-mini';
 
-  // Only gate the render output via this wrapper. Hooks live in ChatWidgetInner.
+  // If not explicitly enabled, render nothing and avoid any network-related code paths.
   if (!enabled) {
     return null;
   }
+
+  // Resolve config only when enabled to avoid any accidental initialization work in CI.
+  const apiKey = process.env.REACT_APP_OPENAI_API_KEY || '';
+  const apiBase = (process.env.REACT_APP_OPENAI_API_BASE || 'https://api.openai.com/v1').replace(/\/*$/, '');
+  const model = process.env.REACT_APP_OPENAI_MODEL || 'gpt-4o-mini';
 
   return <ChatWidgetInner apiKey={apiKey} apiBase={apiBase} model={model} />;
 }

@@ -8,10 +8,10 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
-    "start:ci": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
-    "start:ci:quiet": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
-    "start:stable": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false TSC_COMPILE_ON_ERROR=true SKIP_PREFLIGHT_CHECK=true NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
+    "start": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
+    "start:ci": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
+    "start:ci:quiet": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
+    "start:stable": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none CI=true CHOKIDAR_USEPOLLING=false WATCHPACK_POLLING=false BROWSERSLIST_IGNORE_OLD_DATA=true FAST_REFRESH=false TSC_COMPILE_ON_ERROR=true SKIP_PREFLIGHT_CHECK=true DISABLE_ESLINT_PLUGIN=true WDS_SOCKET_PORT=0 NODE_OPTIONS='--max-old-space-size=256' react-scripts start",
     "build": "BROWSERSLIST_IGNORE_OLD_DATA=true GENERATE_SOURCEMAP=${REACT_APP_ENABLE_SOURCE_MAPS:-false} NODE_OPTIONS='--max-old-space-size=256' react-scripts build",
     "build:ci": "BROWSERSLIST_IGNORE_OLD_DATA=true GENERATE_SOURCEMAP=${REACT_APP_ENABLE_SOURCE_MAPS:-false} CI=true NODE_OPTIONS='--max-old-space-size=256' react-scripts build",
     "test": "CI=true react-scripts test --watchAll=false",

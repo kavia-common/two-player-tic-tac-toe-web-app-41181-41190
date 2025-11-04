@@ -29,6 +29,8 @@ To prevent CI from killing the dev server with exit code 137 (OOM/timeout), pref
   - Binds to HOST=0.0.0.0, uses REACT_APP_PORT (default 3000), disables auto-open (BROWSER=none).
   - Forces CI=true to reduce watcher workload and keep logs concise.
   - Disables polling watchers (CHOKIDAR_USEPOLLING=false, WATCHPACK_POLLING=false) to reduce CPU/memory in containers.
+  - Disables CRA ESLint plugin during dev (DISABLE_ESLINT_PLUGIN=true) and socket port warnings (WDS_SOCKET_PORT=0).
+  - Caps Node memory to 256MB (NODE_OPTIONS=--max-old-space-size=256) to prevent OOM kills.
   - start:stable additionally sets FAST_REFRESH=false, SKIP_PREFLIGHT_CHECK=true and TSC_COMPILE_ON_ERROR=true to minimize hot-reload spikes and preflight overhead.
   - Uses react-scripts dev server which prints "Compiled successfully" on readiness.
 - Production build: `npm run build:ci`
