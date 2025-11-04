@@ -40,7 +40,7 @@ To prevent CI from killing the dev server with exit code 137 (OOM/timeout), pref
 These variants help avoid resource-related terminations (exit code 137) by reducing overhead and preventing manual kills. If port 3000 is occupied in CI, set `REACT_APP_PORT` to a free port.
 
 Health check:
-- A static health endpoint is served at `/healthz` (served from `public/healthz`). After starting, verify readiness with `npm run healthcheck` (expects HTTP 200 on /healthz). The healthcheck targets 127.0.0.1 by default.
+- A static health endpoint is served at `/healthz` (served from `public/healthz`, body "OK"). After starting, verify readiness with `npm run healthcheck` (expects HTTP 200 on /healthz). The healthcheck targets 127.0.0.1 by default.
 - If you interrupt the server with Ctrl+C, the process may exit with code 130; this is expected and not a build failure.
 
 Browserslist:

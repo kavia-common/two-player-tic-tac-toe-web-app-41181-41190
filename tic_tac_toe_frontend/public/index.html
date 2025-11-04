@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- PUBLIC_INTERFACE -->
-    <!-- Basic CRA-compatible HTML template for the Tic Tac Toe app. -->
     <meta charset="utf-8" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#3b82f6" />
-    <meta name="description" content="Two-player Tic Tac Toe - Retro light theme" />
+    <meta
+      name="description"
+      content="Two-player Tic Tac Toe web app - lightweight CRA setup with retro light theme."
+    />
     <title>Tic Tac Toe</title>
+    <!-- Health and CI notes for reference -->
+    <meta name="healthcheck-path" content="/healthz" />
+    <meta name="bind-host" content="0.0.0.0" />
+    <meta name="env-port" content="%REACT_APP_PORT%" />
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
