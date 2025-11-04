@@ -18,6 +18,13 @@ In the project directory, you can run:
 Runs the app in development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+### CI-friendly usage
+
+- Development server: `npm run start:ci` (binds to HOST=0.0.0.0, uses REACT_APP_PORT if set, disables auto-open)
+- Production build: `npm run build:ci` (respects REACT_APP_ENABLE_SOURCE_MAPS; set to false in CI to reduce memory usage)
+
+These variants help avoid resource-related terminations (exit code 137) in CI by reducing overhead and preventing manual kills. If port 3000 is occupied in CI, set `REACT_APP_PORT` to a free port.
+
 ### `npm test`
 
 Launches the test runner in interactive watch mode.

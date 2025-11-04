@@ -9,7 +9,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:ci": "HOST=0.0.0.0 PORT=${REACT_APP_PORT:-3000} BROWSER=none react-scripts start",
     "build": "BROWSERSLIST_IGNORE_OLD_DATA=true react-scripts build",
+    "build:ci": "BROWSERSLIST_IGNORE_OLD_DATA=true GENERATE_SOURCEMAP=${REACT_APP_ENABLE_SOURCE_MAPS:-false} react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx src"
