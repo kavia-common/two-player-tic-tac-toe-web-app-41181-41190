@@ -21,21 +21,27 @@ Open http://localhost:3000 to view it in your browser.
 
 ### CI-friendly usage and stability notes
 
+To prevent CI from killing the dev server with exit code 137 (OOM/timeout), prefer the CI variants below.
+
 - Development server: `npm run start:ci`
   - Binds to HOST=0.0.0.0, uses REACT_APP_PORT (default 3000), disables auto-open (BROWSER=none).
   - Forces CI=true to reduce watcher workload and keep logs concise.
-  - Disables polling watchers (CHOKIDAR_USEPOLLING=false, WATCHPACK_POLLING=false) to reduce CPU/memory in containers).
+  - Disables polling watchers (CHOKIDAR_USEPOLLING=false, WATCHPACK_POLLING=false) to reduce CPU/memory in containers.
+  - Uses react-scripts dev server which prints "Compiled successfully" on readiness.
 - Production build: `npm run build:ci`
   - Suppresses outdated Browserslist DB warnings in CI via BROWSERSLIST_IGNORE_OLD_DATA.
   - Disables source maps by default (GENERATE_SOURCEMAP=false) to reduce memory usage.
 
-These variants help avoid resource-related terminations (exit code 137) in CI by reducing overhead and preventing manual kills. If port 3000 is occupied in CI, set `REACT_APP_PORT` to a free port.
+These variants help avoid resource-related terminations (exit code 137) by reducing overhead and preventing manual kills. If port 3000 is occupied in CI, set `REACT_APP_PORT` to a free port.
 
 Health check:
 - After starting, you can verify server readiness with `npm run healthcheck` (expects HTTP 200 on /).
 
 Browserslist:
 - To update the Browserslist DB locally, run: `npx update-browserslist-db@latest`
+
+Deprecation warnings:
+- Webpack dev server middleware warnings about onBeforeSetupMiddleware/onAfterSetupMiddleware are harmless with react-scripts 5.x. They do not affect functionality.
 
 ## OpenAI Chatbot (Optional)
 

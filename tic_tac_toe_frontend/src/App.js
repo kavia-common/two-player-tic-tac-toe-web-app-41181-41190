@@ -8,6 +8,7 @@ import './styles.css';
  * Returns:
  * - { winner: 'X' | 'O', line: number[] } if someone won
  * - null otherwise
+ * This is a pure helper with no side effects.
  */
 function calculateWinner(squares) {
   const lines = [

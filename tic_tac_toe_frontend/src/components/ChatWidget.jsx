@@ -100,7 +100,8 @@ export default function ChatWidget() {
     }
   };
 
-  // Only gate the render output, not the hook calls
+  // Only gate the render output, not the hook calls.
+  // Rendering null avoids any runtime work when chatbot is disabled in env.
   if (!enabled) {
     return null;
   }
